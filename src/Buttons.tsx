@@ -2,17 +2,13 @@ export default function ButtonStruct() {
   return (
     <>
       <div className="ButtonStructDiv">
-        <input
-          className="title style-button"
-          type="text"
-          placeholder="title"
-        ></input>
+        <input className="title style-button" type="text" placeholder="title" />
         <input
           className="content style-button"
           type="text"
-          placeholder="content "
-        ></input>
-        <input className="date style-button" type="Date"></input>
+          placeholder="content"
+        />
+        <input className="date style-button" type="date" />
         <button className="Add-button style-button">Add</button>
         <button className="Modify-button style-button">Modify</button>
         <div className="Delete-all-div">
@@ -21,4 +17,4 @@ export default function ButtonStruct() {
       </div>
     </>
   );
-};
+}

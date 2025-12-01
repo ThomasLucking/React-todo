@@ -1,8 +1,8 @@
 import './App.css';
 
-import TaskElement from '../src/TaskElement.tsx'
-import SortingButton from './SortingButton.tsx'
-import ButtonStruct from './Buttons.tsx'
+import TaskElement from './TaskElement.tsx';
+import SortingButton from './SortingButton.tsx';
+import ButtonStruct from './Buttons.tsx';
 
 export default function TodoApp() {
   return (
