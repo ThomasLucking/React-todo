@@ -2,8 +2,7 @@ import './App.css';
 
 import TaskElement from './task/TaskElement.tsx';
 import SortingMenuTodo from './task/SortingMenuTodo.tsx';
-import TaskCreationButtons from './form/TaskCreationForm.tsx';
-
+import TaskCreationForm from './form/TaskCreationForm.tsx';
 export default function TodoApp() {
   return (
     <>
@@ -11,7 +10,8 @@ export default function TodoApp() {
         <h1 className="title-todo">TaskFlow</h1>
       </div>
       <div className="body-div">
-        <TaskCreationButtons />
+        <TaskCreationForm />
+
         <SortingMenuTodo />
         <TaskElement />
       </div>

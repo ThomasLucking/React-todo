@@ -1,3 +1,5 @@
+import DeleteAllButton from "./DeleteAllButton";
+
 export default function TaskCreationForm() {
   return (
     <div className="ButtonStructDiv">
@@ -9,7 +11,7 @@ export default function TaskCreationForm() {
       />
       <input className="date style-button" type="date" />
       <button className="Add-button style-button">Add</button>
-      <button className="Modify-button style-button">Modify</button>
+      <DeleteAllButton />
     </div>
   );
 }
