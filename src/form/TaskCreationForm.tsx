@@ -1,4 +1,4 @@
-import DeleteAllButton from "./DeleteAllButton";
+import DeleteAllButton from './DeleteAllButton';
 
 export default function TaskCreationForm() {
   return (
