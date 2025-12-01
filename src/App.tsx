@@ -1,12 +1,20 @@
 import './App.css';
 
-const App = () => {
+import TaskElement from './task/TaskElement.tsx';
+import SortingMenuTodo from './task/SortingMenuTodo.tsx';
+import TaskCreationForm from './form/TaskCreationForm.tsx';
+export default function TodoApp() {
   return (
-    <div className="content">
-      <h1>Rsbuild with React</h1>
-      <p>Start building amazing things with Rsbuild.</p>
-    </div>
-  );
-};
+    <>
+      <div className="title-div">
+        <h1 className="title-todo">TaskFlow</h1>
+      </div>
+      <div className="body-div">
+        <TaskCreationForm />
 
-export default App;
+        <SortingMenuTodo />
+        <TaskElement />
+      </div>
+    </>
+  );
+}
