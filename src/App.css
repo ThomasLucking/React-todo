@@ -1,26 +1,127 @@
-body {
-  margin: 0;
-  color: #fff;
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  background-image: linear-gradient(to bottom, #020917, #101725);
+:root {
+  --title-color: rgb(243, 74, 74);
 }
 
-.content {
+.title-div {
   display: flex;
-  min-height: 100vh;
-  line-height: 1.1;
-  text-align: center;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
-.content h1 {
-  font-size: 3.6rem;
-  font-weight: 700;
+.title-todo {
+  color: var(--title-color);
 }
 
-.content p {
-  font-size: 1.2rem;
-  font-weight: 400;
-  opacity: 0.5;
+.ButtonStructDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem auto;
+  max-width: 60rem;
+}
+
+.style-button {
+  border: solid 1px #ccc;
+  background-color: rgb(240, 240, 240);
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.Add-button {
+  background-color: rgb(145, 236, 113);
+  width: 7rem;
+}
+
+.Modify-button {
+  background-color: rgb(238, 250, 71);
+  width: 7rem;
+}
+
+.Delete-all-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
+.Delete-all {
+  background-color: rgb(248, 88, 88);
+  color: #211f1f;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.Sorting-menu-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.Sorting-menu {
+  color: #211f1f;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.TaskElement-div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0 auto;
+  max-height: 80vh;
+  gap: 1rem;
+  max-width: 65rem;
+}
+
+.fieldset-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 90%;
+  max-width: 30rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  height: 4rem;
+}
+
+.task-legend {
+  background-color: white;
+  color: #333;
+  font-size: 1.1rem;
+  padding: 0 0.5rem;
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  gap: 1rem;
+  flex-grow: 1;
+}
+
+.task-date {
+  color: #666;
+  font-size: 0.9rem;
+  margin-right: 0;
+  margin-left: auto;
+  padding-right: 1rem;
+}
+
+.task-checkbox {
+  transform: scale(1.2);
+}
+
+.delete-task-button {
+  background-color: rgb(248, 88, 88);
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem;
 }

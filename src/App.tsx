@@ -1,8 +1,8 @@
 import './App.css';
 
-import TaskElement from './TaskElement.tsx';
-import SortingMenuTodo from './SortingMenuTodo.tsx';
-import TaskCreationButtons from './TaskCreationButtons.tsx';
+import TaskElement from './task/TaskElement.tsx';
+import SortingMenuTodo from './task/SortingMenuTodo.tsx';
+import TaskCreationButtons from './form/TaskCreationForm.tsx';
 
 export default function TodoApp() {
   return (
