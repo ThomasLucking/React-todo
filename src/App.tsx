@@ -1,12 +1,20 @@
 import './App.css';
 
-const App = () => {
-  return (
-    <div className="content">
-      <h1>Rsbuild with React</h1>
-      <p>Start building amazing things with Rsbuild.</p>
-    </div>
-  );
-};
+import TaskElement from '../src/TaskElement.tsx'
+import SortingButton from './SortingButton.tsx'
+import ButtonStruct from './Buttons.tsx'
 
-export default App;
+export default function TodoApp() {
+  return (
+    <>
+      <div className="title-div">
+        <h1 className="title-todo">TaskFlow</h1>
+      </div>
+      <div className="body-div">
+        <ButtonStruct />
+        <SortingButton />
+        <TaskElement />
+      </div>
+    </>
+  );
+}
