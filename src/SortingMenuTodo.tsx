@@ -1,4 +1,4 @@
-export default function SortingButton() {
+export default function SortingMenuTodo() {
   return (
     <>
       <div className="Sorting-menu-div">

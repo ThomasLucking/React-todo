@@ -1,6 +1,5 @@
 export default function TaskElement() {
   return (
-    <>
       <div className="TaskElement-div">
         <fieldset className="fieldset-div">
           <legend className="task-legend">Task</legend>
@@ -12,6 +11,5 @@ export default function TaskElement() {
           </div>
         </fieldset>
       </div>
-    </>
   );
 }

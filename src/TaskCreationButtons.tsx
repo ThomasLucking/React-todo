@@ -1,6 +1,5 @@
-export default function ButtonStruct() {
+export default function TaskCreationButtons() {
   return (
-    <>
       <div className="ButtonStructDiv">
         <input className="title style-button" type="text" placeholder="title" />
         <input
@@ -15,6 +14,5 @@ export default function ButtonStruct() {
           <button className="Delete-all">Delete All</button>
         </div>
       </div>
-    </>
   );
 }
