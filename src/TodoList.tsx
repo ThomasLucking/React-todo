@@ -30,10 +30,10 @@ export const TodoList = ({ initialTasks }: Props) => {
       <TaskCreationForm onAddTask={handleAddTask} />
       <SortingMenuTodo />
       {tasks.map((task) => (
-        <TaskElement 
-          key={task.id} 
-          {...task} 
-          onTaskUpdate={handleTaskUpdate} 
+        <TaskElement
+          key={task.id}
+          {...task}
+          onTaskUpdate={handleTaskUpdate}
           onTaskDelete={handleDeleteTask}
         />
       ))}
