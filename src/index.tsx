@@ -8,7 +8,9 @@ if (rootEl) {
   const root = ReactDOM.createRoot(rootEl);
   root.render(
     <React.StrictMode>
-      <ErrorBoundary fallback="error">
+      <ErrorBoundary
+        fallback={<div>Something went wrong. Please try again later.</div>}
+      >
         <Suspense fallback={<div>Loading tasks from API...</div>}>
           <App />
         </Suspense>

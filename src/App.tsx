@@ -1,7 +1,7 @@
 import { use } from 'react';
 // 1. Import useState
 import './App.css';
-import { fetchTasks } from '/home/thomas/Desktop/React-todo/src/taskAPI/taskapi.ts';
+import { fetchTasks } from './taskAPI/taskapi.ts';
 import { TodoList } from './TodoList.tsx';
 
 const fetchTasksPromise = fetchTasks();

@@ -16,7 +16,9 @@ export const TodoList = ({ initialTasks }: Props) => {
   };
 
   const handleTaskUpdate = (updatedTask: SavedApiTask) => {
-    setTasks(tasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
+    setTasks((prevTasks) =>
+      prevTasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)),
+    );
   };
 
   return (

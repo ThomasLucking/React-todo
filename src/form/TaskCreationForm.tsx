@@ -9,20 +9,24 @@ export type TaskInput = {
   done: boolean;
 };
 
-export default function TaskCreationForm({
-  onAddTask,
-}: {
+type TaskCreationFormProps = {
   onAddTask: (newtask: SavedApiTask) => void;
-}) {
+};
+
+export default function TaskCreationForm({ onAddTask }: TaskCreationFormProps) {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [dueDate, setDueDate] = useState<string>('');
 
+  const [titleError, setTitleError] = useState<string | null>(null);
+
   const addtask = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setTitleError(null);
+
     if (!title.trim()) {
-      alert('Please enter a title');
+      setTitleError('task title cannot be empty.');
       return;
     }
 
@@ -57,6 +61,7 @@ export default function TaskCreationForm({
           setTitle(e.target.value);
         }}
       />
+      {titleError && <p className="error-message">{titleError}</p>}
       <input
         className="content style-button"
         type="text"

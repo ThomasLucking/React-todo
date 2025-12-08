@@ -37,7 +37,7 @@ export default function TaskElement({
         />
         <p>
           <span>{content}</span>
-          <time className="task-date" dateTime="06.5.2025">
+          <time className="task-date" dateTime={due_date ?? undefined}>
             {due_date}
           </time>
         </p>
