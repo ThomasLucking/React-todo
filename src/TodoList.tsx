@@ -21,7 +21,7 @@ export const TodoList = ({ initialTasks }: Props) => {
     );
   };
 
-  const handleDeleteTask = (taskId: number | string) => {
+  const handleDeleteTask = (taskId: number) => {
     setTasks((prevTasks) => prevTasks.filter((t) => t.id !== taskId));
   };
 

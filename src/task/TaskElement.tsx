@@ -4,7 +4,7 @@ import { deleteTasksViaAPI } from '../taskAPI/taskapi';
 
 type TaskElementProps = SavedApiTask & {
   onTaskUpdate: (updatedTask: SavedApiTask) => void;
-  onTaskDelete: (deletedTaskId: number | string) => void;
+  onTaskDelete: (deletedTaskId: number) => void;
 };
 
 export default function TaskElement({
