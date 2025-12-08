@@ -21,12 +21,21 @@ export const TodoList = ({ initialTasks }: Props) => {
     );
   };
 
+  const handleDeleteTask = (taskId: number | string) => {
+    setTasks((prevTasks) => prevTasks.filter((t) => t.id !== taskId));
+  };
+
   return (
     <div className="body-div">
       <TaskCreationForm onAddTask={handleAddTask} />
       <SortingMenuTodo />
       {tasks.map((task) => (
-        <TaskElement key={task.id} {...task} onTaskUpdate={handleTaskUpdate} />
+        <TaskElement 
+          key={task.id} 
+          {...task} 
+          onTaskUpdate={handleTaskUpdate} 
+          onTaskDelete={handleDeleteTask}
+        />
       ))}
     </div>
   );

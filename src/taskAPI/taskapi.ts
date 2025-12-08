@@ -70,19 +70,19 @@ export const fetchTasks = async () => {
   return data;
 };
 
-// const deleteTasksViaAPI = async (taskid: number): Promise<void> => {
-//   await requestData<void>(
-//     `${API_URL}?id=eq.${taskid}`,
-//     'DELETE',
-//     {
-//       loading: 'Attempting to delete task...',
-//       success: 'Task successfully deleted',
-//       error: 'Failed to delete task',
-//     },
-//     undefined,
-//     undefined,
-//   );
-// };
+export const deleteTasksViaAPI = async (taskid: number): Promise<void> => {
+  await requestData<void>(
+    `${API_URL}?id=eq.${taskid}`,
+    'DELETE',
+    {
+      loading: 'Attempting to delete task...',
+      success: 'Task successfully deleted',
+      error: 'Failed to delete task',
+    },
+    undefined,
+    undefined,
+  );
+};
 
 export const updateTaskStateViaAPI = async (
   task: SavedApiTask,

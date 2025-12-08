@@ -1,8 +1,10 @@
 import { type SavedApiTask } from '../taskAPI/taskapi';
 import { updateTaskStateViaAPI } from '../taskAPI/taskapi';
+import { deleteTasksViaAPI } from '../taskAPI/taskapi';
 
 type TaskElementProps = SavedApiTask & {
   onTaskUpdate: (updatedTask: SavedApiTask) => void;
+  onTaskDelete: (deletedTaskId: number | string) => void;
 };
 
 export default function TaskElement({
@@ -12,6 +14,7 @@ export default function TaskElement({
   done,
   id,
   onTaskUpdate,
+  onTaskDelete,
 }: TaskElementProps) {
   const handleToggleDone = async () => {
     try {
@@ -24,6 +27,15 @@ export default function TaskElement({
       console.error('Failed to update task:', error);
     }
   };
+  
+  const handleDelete = async () => {
+    try {
+      await deleteTasksViaAPI(id);
+      onTaskDelete(id);
+    } catch(error) {
+      console.error('failed to delete task', error);
+    }
+  }
 
   return (
     <fieldset className="fieldset-div">
@@ -41,7 +53,7 @@ export default function TaskElement({
             {due_date}
           </time>
         </p>
-        <button className="style-button delete-task-button">Delete</button>
+        <button className="style-button delete-task-button" onClick={handleDelete}>Delete</button>
       </div>
     </fieldset>
   );
