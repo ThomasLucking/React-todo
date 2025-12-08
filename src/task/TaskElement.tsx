@@ -1,13 +1,44 @@
-export default function TaskElement() {
+import { type SavedApiTask } from '../taskAPI/taskapi';
+import { updateTaskStateViaAPI } from '../taskAPI/taskapi';
+
+type TaskElementProps = SavedApiTask & {
+  onTaskUpdate: (updatedTask: SavedApiTask) => void;
+};
+
+export default function TaskElement({
+  title,
+  content,
+  due_date,
+  done,
+  id,
+  onTaskUpdate,
+}: TaskElementProps) {
+  const handleToggleDone = async () => {
+    try {
+      const updatedTask = await updateTaskStateViaAPI(
+        { title, content, due_date, done, id },
+        !done,
+      );
+      onTaskUpdate(updatedTask);
+    } catch (error) {
+      console.error('Failed to update task:', error);
+    }
+  };
+
   return (
     <fieldset className="fieldset-div">
-      <legend className="task-legend">Task</legend>
+      <legend className="task-legend">{title}</legend>
       <div className="task-content">
-        <input type="checkbox" className="task-checkbox" />
+        <input
+          type="checkbox"
+          className="task-checkbox"
+          checked={done}
+          onChange={handleToggleDone}
+        />
         <p>
-          <span>hello</span>
-          <time className="task-date" dateTime="06.5.2025">
-            06.5.2025
+          <span>{content}</span>
+          <time className="task-date" dateTime={due_date ?? undefined}>
+            {due_date}
           </time>
         </p>
         <button className="style-button delete-task-button">Delete</button>
