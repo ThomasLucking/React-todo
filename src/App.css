@@ -1,5 +1,7 @@
 :root {
   --title-color: rgb(243, 74, 74);
+  --active-border-color: #007bff;
+  --active-background-color: #e7f3ff;
 }
 
 .title-div {
@@ -65,6 +67,11 @@
   color: #211f1f;
   padding: 0.5rem;
   border-radius: 0.5rem;
+}
+
+.Sorting-menu-active {
+  border: 2px solid var(--active-border-color);
+  background-color: var(--active-background-color);
 }
 
 .fieldset-div {
