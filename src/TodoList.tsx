@@ -3,6 +3,7 @@ import type { SavedApiTask } from './taskAPI/taskapi';
 import TaskElement from './task/TaskElement';
 import TaskCreationForm from './form/TaskCreationForm';
 import SortingMenuTodo from './task/SortingMenuTodo';
+import { SORT_OPTIONS, FILTER_OPTIONS } from './constants/constants';
 
 type Props = {
   initialTasks: SavedApiTask[];
@@ -40,11 +41,11 @@ export const TodoList = ({ initialTasks }: Props) => {
 
   let displayedTasks = [...tasks];
 
-  if (primarySort === 'sort-by-name') {
+  if (primarySort === SORT_OPTIONS.BY_NAME) {
     displayedTasks.sort((a, b) => a.title.localeCompare(b.title));
   }
 
-  if (primarySort === 'due-date') {
+  if (primarySort === SORT_OPTIONS.BY_DUE_DATE) {
     displayedTasks.sort((a, b) => {
       const aDate = a.due_date;
       const bDate = b.due_date;
@@ -56,22 +57,33 @@ export const TodoList = ({ initialTasks }: Props) => {
       const aTime = new Date(aDate as string).getTime();
       const bTime = new Date(bDate as string).getTime();
 
+      const aIsInvalid = isNaN(aTime);
+      const bIsInvalid = isNaN(bTime);
+
+      if (aIsInvalid && !bIsInvalid) return 1;
+      if (bIsInvalid && !aIsInvalid) return -1;
+      if (aIsInvalid && bIsInvalid) return 0;
+
       return aTime - bTime;
     });
   }
 
-  if (statusFilter === 'sort-by-undone-first') {
+  if (statusFilter === FILTER_OPTIONS.UNDONE) {
     displayedTasks = displayedTasks.filter((task) => !task.done);
   }
 
-  if (statusFilter === 'sort-by-done-first') {
+  if (statusFilter === FILTER_OPTIONS.DONE) {
     displayedTasks = displayedTasks.filter((task) => task.done);
   }
 
   return (
     <div className="body-div">
       <TaskCreationForm onAddTask={handleAddTask} />
-      <SortingMenuTodo onSortingChange={handleSortingChange} currentSort={primarySort} currentFilter={statusFilter} />
+      <SortingMenuTodo
+        onSortingChange={handleSortingChange}
+        currentSort={primarySort}
+        currentFilter={statusFilter}
+      />
       {displayedTasks.map((task) => (
         <TaskElement
           key={task.id}

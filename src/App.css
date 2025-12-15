@@ -1,5 +1,7 @@
 :root {
   --title-color: rgb(243, 74, 74);
+  --active-border-color: #007bff;
+  --active-background-color: #e7f3ff;
 }
 
 .title-div {
@@ -68,8 +70,8 @@
 }
 
 .Sorting-menu.active {
-  border: 2px solid #007bff;
-  background-color: #e7f3ff;
+  border: 2px solid var(--active-border-color);
+  background-color: var(--active-background-color);
 }
 
 .fieldset-div {
