@@ -114,3 +114,9 @@
   font-weight: bold;
   padding: 0.5rem;
 }
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
