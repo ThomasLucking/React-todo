@@ -69,7 +69,7 @@
   border-radius: 0.5rem;
 }
 
-.Sorting-menu.active {
+.Sorting-menu-active {
   border: 2px solid var(--active-border-color);
   background-color: var(--active-background-color);
 }

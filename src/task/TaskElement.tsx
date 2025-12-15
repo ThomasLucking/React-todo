@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { type SavedApiTask } from '../taskAPI/taskapi';
-import { UpdateTask, deleteTasksViaAPI } from '../taskAPI/taskapi';
+import { updateTask, deleteTasksViaAPI } from '../taskAPI/taskapi';
 
 type TaskElementProps = SavedApiTask & {
   onTaskUpdate: (updatedTask: SavedApiTask) => void;
@@ -48,7 +48,7 @@ export default function TaskElement({
           id,
           done,
         };
-        const updatedTask = await UpdateTask(updatedTaskData);
+        const updatedTask = await updateTask(updatedTaskData);
         onTaskUpdate(updatedTask);
       } catch (error) {
         console.error('Failed to update task:', error);
@@ -82,7 +82,7 @@ export default function TaskElement({
         done: !done,
       };
 
-      const updatedTask = await UpdateTask(updatedTaskData);
+      const updatedTask = await updateTask(updatedTaskData);
 
       onTaskUpdate(updatedTask);
     } catch (error) {
