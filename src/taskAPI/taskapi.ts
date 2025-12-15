@@ -7,31 +7,39 @@ export interface ApiTask {
 
 export type SavedApiTask = ApiTask & { id: number };
 
-async function requestData<T>(
+async function RequestData<Data>(
   url: string,
   method: string,
-  messages: { loading: string; success: string; error: string },
-  headers?: Record<string, string>,
-  body?: unknown,
-): Promise<T[]> {
+  body?: Record<string, unknown>,
+): Promise<Data[]> {
+  const fetchOptions: RequestInit = {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+      Prefer: 'return=representation',
+    },
+  };
+
+  if (body) {
+    fetchOptions.body = JSON.stringify(body);
+  } else if (method === 'POST' || method === 'PATCH' || method === 'PUT') {
+    throw new Error(`API call using ${method} requires a request body.`);
+  }
+
   try {
-    const response = await fetch(url, {
-      method: method,
-      headers: headers || {
-        'Content-Type': 'application/json',
-        Prefer: 'return=representation',
-      },
-      body: body ? JSON.stringify(body) : undefined,
-    });
+    const response = await fetch(url, fetchOptions);
 
     if (!response.ok) {
-      throw new Error(`Error with the API: ${response.status}`);
+      const errorDetail = await response.text();
+      throw new Error(
+        `Error with the API: ${response.status} ${response.statusText || ''}. Details: ${errorDetail}`,
+      );
     }
 
-    const data = (await response.json()) as T[];
+    const data = (await response.json()) as Data[];
     return data;
   } catch (error) {
-    console.error(error);
+    console.error('API Request Failed:', error);
     throw error;
   }
 }
@@ -46,27 +54,13 @@ export const saveTasksViaAPI = async (task: ApiTask): Promise<SavedApiTask> => {
     done: task.done,
   };
 
-  const data = await requestData<SavedApiTask>(
-    API_URL,
-    'POST',
-    {
-      loading: '...loading',
-      success: 'Task successfully saved.',
-      error: 'Failed to save task',
-    },
-    undefined,
-    payload,
-  );
+  const data = await RequestData<SavedApiTask>(API_URL, 'POST', payload);
 
   return data[0] as SavedApiTask;
 };
 
 export const fetchTasks = async () => {
-  const data = await requestData<SavedApiTask>(API_URL, 'GET', {
-    loading: 'Loading tasks...',
-    success: 'Tasks successfully loaded!',
-    error: 'Failed to load tasks',
-  });
+  const data = await RequestData<SavedApiTask>(API_URL, 'GET');
   return data;
 };
 
@@ -80,21 +74,22 @@ export const deleteTasksViaAPI = async (taskid: number): Promise<void> => {
   }
 };
 
-export const updateTaskStateViaAPI = async (
+export const UpdateTask = async (
   task: SavedApiTask,
-  done: boolean,
 ): Promise<SavedApiTask> => {
-  const data = await requestData<SavedApiTask>(
+  const updateBody = {
+    title: task.title,
+    content: task.content,
+    due_date: task.due_date,
+    done: task.done,
+  };
+
+  const data = await RequestData<SavedApiTask>(
     `${API_URL}?id=eq.${task.id}`,
     'PATCH',
-    {
-      loading: 'Attempting to update state of task...',
-      success: 'Updated State of task successfully',
-      error: 'Failed to update task state',
-    },
-    undefined,
-    { done },
+    updateBody,
   );
+
   return data[0] as SavedApiTask;
 };
 
