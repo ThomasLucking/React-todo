@@ -74,9 +74,7 @@ export const deleteTasksViaAPI = async (taskid: number): Promise<void> => {
   }
 };
 
-export const UpdateTask = async (
-  task: SavedApiTask,
-): Promise<SavedApiTask> => {
+export const UpdateTask = async (task: SavedApiTask): Promise<SavedApiTask> => {
   const updateBody = {
     title: task.title,
     content: task.content,

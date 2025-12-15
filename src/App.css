@@ -67,6 +67,11 @@
   border-radius: 0.5rem;
 }
 
+.Sorting-menu.active {
+  border: 2px solid #007bff;
+  background-color: #e7f3ff;
+}
+
 .fieldset-div {
   display: flex;
   justify-content: center;
