@@ -7,7 +7,7 @@ export interface ApiTask {
 
 export type SavedApiTask = ApiTask & { id: number };
 
-async function ModifyData<Data>(
+async function RequestData<Data>(
   url: string,
   method: string,
   body?: Record<string, unknown>,
@@ -54,13 +54,13 @@ export const saveTasksViaAPI = async (task: ApiTask): Promise<SavedApiTask> => {
     done: task.done,
   };
 
-  const data = await ModifyData<SavedApiTask>(API_URL, 'POST', payload);
+  const data = await RequestData<SavedApiTask>(API_URL, 'POST', payload);
 
   return data[0] as SavedApiTask;
 };
 
 export const fetchTasks = async () => {
-  const data = await ModifyData<SavedApiTask>(API_URL, 'GET');
+  const data = await RequestData<SavedApiTask>(API_URL, 'GET');
   return data;
 };
 
@@ -74,7 +74,7 @@ export const deleteTasksViaAPI = async (taskid: number): Promise<void> => {
   }
 };
 
-export const UpdateTaskElement = async (
+export const UpdateTask = async (
   task: SavedApiTask,
 ): Promise<SavedApiTask> => {
   const updateBody = {
@@ -84,7 +84,7 @@ export const UpdateTaskElement = async (
     done: task.done,
   };
 
-  const data = await ModifyData<SavedApiTask>(
+  const data = await RequestData<SavedApiTask>(
     `${API_URL}?id=eq.${task.id}`,
     'PATCH',
     updateBody,

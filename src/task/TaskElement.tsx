@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { type SavedApiTask } from '../taskAPI/taskapi';
-import { UpdateTaskElement, deleteTasksViaAPI } from '../taskAPI/taskapi';
+import { UpdateTask, deleteTasksViaAPI } from '../taskAPI/taskapi';
 
 type TaskElementProps = SavedApiTask & {
   onTaskUpdate: (updatedTask: SavedApiTask) => void;
@@ -48,7 +48,7 @@ export default function TaskElement({
           id,
           done,
         };
-        const updatedTask = await UpdateTaskElement(updatedTaskData);
+        const updatedTask = await UpdateTask(updatedTaskData);
         onTaskUpdate(updatedTask);
       } catch (error) {
         console.error('Failed to update task:', error);
@@ -75,14 +75,14 @@ export default function TaskElement({
   const handleToggleDone = async () => {
     try {
       const updatedTaskData: SavedApiTask = {
-        title,
-        content,
-        due_date,
+        title: isEditing ? editedTitle : title,
+        content: isEditing ? editedContent : content,
+        due_date: isEditing ? editedDueDate : due_date,
         id,
         done: !done,
       };
 
-      const updatedTask = await UpdateTaskElement(updatedTaskData);
+      const updatedTask = await UpdateTask(updatedTaskData);
 
       onTaskUpdate(updatedTask);
     } catch (error) {
@@ -107,7 +107,6 @@ export default function TaskElement({
           className="task-title-input"
           value={editedTitle}
           onChange={handleTitleChange}
-          autoFocus
         />
       ) : (
         <legend className="task-legend" onClick={handleClick}>
