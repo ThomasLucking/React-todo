@@ -5,6 +5,7 @@ import { updateTask, deleteTasksViaAPI } from '../taskAPI/taskapi';
 type TaskElementProps = SavedApiTask & {
   onTaskUpdate: (updatedTask: SavedApiTask) => void;
   onTaskDelete: (deletedTaskId: number) => void;
+  setErrorMessage: (message: string | null) => void;
 };
 
 export default function TaskElement({
@@ -15,6 +16,7 @@ export default function TaskElement({
   id,
   onTaskUpdate,
   onTaskDelete,
+  setErrorMessage,
 }: TaskElementProps) {
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedContent, setEditedContent] = useState(content);
@@ -51,7 +53,8 @@ export default function TaskElement({
         const updatedTask = await updateTask(updatedTaskData);
         onTaskUpdate(updatedTask);
       } catch (error) {
-        console.error('Failed to update task:', error);
+        setErrorMessage('Failed to update task. Please try again.');
+        console.error('Error updating task:', error);
         setEditedTitle(title);
         setEditedContent(content);
         setEditedDueDate(due_date);
@@ -86,7 +89,8 @@ export default function TaskElement({
 
       onTaskUpdate(updatedTask);
     } catch (error) {
-      console.error('Failed to update task:', error);
+      setErrorMessage('Failed to toggle task status. Please try again.');
+      console.log('Error toggling task status:', error);
     }
   };
 
@@ -95,7 +99,8 @@ export default function TaskElement({
       await deleteTasksViaAPI(id);
       onTaskDelete(id);
     } catch (error) {
-      console.error('failed to delete task', error);
+      setErrorMessage('Failed to delete task. Please try again.');
+      console.error('Error deleting task:', error);
     }
   };
 

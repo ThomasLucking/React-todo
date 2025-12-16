@@ -11,9 +11,13 @@ export type TaskInput = {
 
 type TaskCreationFormProps = {
   onAddTask: (newtask: SavedApiTask) => void;
+  setErrorMessage: (message: string | null) => void;
 };
 
-export default function TaskCreationForm({ onAddTask }: TaskCreationFormProps) {
+export default function TaskCreationForm({
+  onAddTask,
+  setErrorMessage,
+}: TaskCreationFormProps) {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [dueDate, setDueDate] = useState<string>('');
@@ -45,8 +49,8 @@ export default function TaskCreationForm({ onAddTask }: TaskCreationFormProps) {
       setContent('');
       setDueDate('');
     } catch (error) {
-      console.error('Error creating task:', error);
-      alert('Failed to save task. Please try again.');
+      setErrorMessage('Failed to add and save the task. Please try again.');
+      console.error('Error saving task:', error);
     }
   };
 
