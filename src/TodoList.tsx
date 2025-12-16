@@ -7,9 +7,10 @@ import { SORT_OPTIONS, FILTER_OPTIONS } from './constants/constants';
 
 type Props = {
   initialTasks: SavedApiTask[];
+  setErrorMessage: (message: string | null) => void;
 };
 
-export const TodoList = ({ initialTasks }: Props) => {
+export const TodoList = ({ initialTasks, setErrorMessage }: Props) => {
   const [tasks, setTasks] = useState<SavedApiTask[]>(initialTasks);
   const [primarySort, setPrimarySort] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('');
@@ -78,7 +79,10 @@ export const TodoList = ({ initialTasks }: Props) => {
 
   return (
     <div className="body-div">
-      <TaskCreationForm onAddTask={handleAddTask} />
+      <TaskCreationForm
+        onAddTask={handleAddTask}
+        setErrorMessage={setErrorMessage}
+      />
       <SortingMenuTodo
         onSortingChange={handleSortingChange}
         currentSort={primarySort}
@@ -90,6 +94,7 @@ export const TodoList = ({ initialTasks }: Props) => {
           {...task}
           onTaskUpdate={handleTaskUpdate}
           onTaskDelete={handleDeleteTask}
+          setErrorMessage={setErrorMessage}
         />
       ))}
     </div>

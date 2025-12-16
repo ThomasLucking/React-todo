@@ -65,12 +65,17 @@ export const fetchTasks = async () => {
 };
 
 export const deleteTasksViaAPI = async (taskid: number): Promise<void> => {
-  const response = await fetch(`${API_URL}?id=eq.${taskid}`, {
-    method: 'DELETE',
-  });
+  try {
+    const response = await fetch(`${API_URL}?id=eq.${taskid}`, {
+      method: 'DELETE',
+    });
 
-  if (!response.ok) {
-    throw new Error(`Failed to delete task: ${response.statusText}`);
+    if (!response.ok) {
+      throw new Error(`Failed to delete task: ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error('Delete Request Failed:', error);
+    throw error;
   }
 };
 
