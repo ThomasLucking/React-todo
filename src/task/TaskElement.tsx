@@ -90,7 +90,7 @@ export default function TaskElement({
       onTaskUpdate(updatedTask);
     } catch (error) {
       setErrorMessage('Failed to toggle task status. Please try again.');
-      console.log('Error toggling task status:', error);
+      console.error('Error toggling task status:', error);
     }
   };
 

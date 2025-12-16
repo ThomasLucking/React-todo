@@ -3,6 +3,7 @@ import './App.css';
 import { fetchTasks } from './taskAPI/taskapi.ts';
 import { TodoList } from './TodoList.tsx';
 import ErrorManagementComponent from './ErrorManagement/ErrorManagement.tsx';
+import { ErrorBoundary } from 'react-error-boundary';
 const fetchTasksPromise = fetchTasks();
 
 export default function App() {
@@ -11,6 +12,14 @@ export default function App() {
 
   return (
     <>
+      <ErrorBoundary
+        fallback={
+          <ErrorManagementComponent
+            message="Critial Error Occurred. Please try reloading the app."
+            onDismiss={() => setErrorMessage(null)}
+          />
+        }
+      ></ErrorBoundary>
       {errorMessage && (
         <ErrorManagementComponent
           message={errorMessage}
