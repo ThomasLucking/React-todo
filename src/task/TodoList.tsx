@@ -1,33 +1,16 @@
 import { useState } from 'react';
-import type { SavedApiTask } from './taskAPI/taskapi';
-import TaskElement from './task/TaskElement';
-import TaskCreationForm from './form/TaskCreationForm';
-import SortingMenuTodo from './task/SortingMenuTodo';
-import { SORT_OPTIONS, FILTER_OPTIONS } from './constants/constants';
+import TaskElement from './TaskElement';
+import TaskCreationForm from '../form/TaskCreationForm';
+import SortingMenuTodo from './SortingMenuTodo';
+import { SORT_OPTIONS, FILTER_OPTIONS } from '../constants/constants';
+import { useTaskStore } from '../store/useTasksStore';
 
-type Props = {
-  initialTasks: SavedApiTask[];
-  setErrorMessage: (message: string | null) => void;
-};
-
-export const TodoList = ({ initialTasks, setErrorMessage }: Props) => {
-  const [tasks, setTasks] = useState<SavedApiTask[]>(initialTasks);
+export const TodoList = () => {
+  
+  const tasks = useTaskStore((state) => state.tasks);
+  
   const [primarySort, setPrimarySort] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('');
-
-  const handleAddTask = (newTask: SavedApiTask) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]);
-  };
-
-  const handleTaskUpdate = (updatedTask: SavedApiTask) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)),
-    );
-  };
-
-  const handleDeleteTask = (taskId: number) => {
-    setTasks((prevTasks) => prevTasks.filter((t) => t.id !== taskId));
-  };
 
   const handleSortingChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -79,10 +62,9 @@ export const TodoList = ({ initialTasks, setErrorMessage }: Props) => {
 
   return (
     <div className="body-div">
-      <TaskCreationForm
-        onAddTask={handleAddTask}
-        setErrorMessage={setErrorMessage}
-      />
+
+      <TaskCreationForm />
+      
       <SortingMenuTodo
         onSortingChange={handleSortingChange}
         currentSort={primarySort}
@@ -92,9 +74,6 @@ export const TodoList = ({ initialTasks, setErrorMessage }: Props) => {
         <TaskElement
           key={task.id}
           {...task}
-          onTaskUpdate={handleTaskUpdate}
-          onTaskDelete={handleDeleteTask}
-          setErrorMessage={setErrorMessage}
         />
       ))}
     </div>
