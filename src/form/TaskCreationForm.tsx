@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import DeleteAllButton from './DeleteAllButton';
 import { saveTasksViaAPI } from '../taskAPI/taskapi';
-import { useTaskStore, useError } from '../store/useTasksStore'; 
+import { useTaskStore } from '../store/useTasksStore'; 
 
 export type TaskInput = {
   title: string;
@@ -12,7 +12,7 @@ export type TaskInput = {
 
 export default function TaskCreationForm() {
   const addTask = useTaskStore((state) => state.addTask);
-  const { setErrorMessage } = useError();
+  const setErrorMessage = useTaskStore((state) => state.setErrorMessage);
 
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');

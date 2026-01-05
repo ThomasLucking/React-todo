@@ -32,9 +32,4 @@ export const useTaskStore = create<TaskState>((set) => ({
 }));
 
 
-export const useError = () => {
-  const errorMessage = useTaskStore((state) => state.errorMessage);
-  const setErrorMessage = useTaskStore((state) => state.setErrorMessage);
 
-  return { errorMessage, setErrorMessage };
-};
