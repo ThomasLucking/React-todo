@@ -96,16 +96,10 @@ export const updateTask = async (task: SavedApiTask): Promise<SavedApiTask> => {
   return data[0] as SavedApiTask;
 };
 
-// const deleteAllTasksViaAPI = async (): Promise<void> => {
-//   await requestData<void>(
-//     API_URL,
-//     'DELETE',
-//     {
-//       loading: 'Attempting to delete tasks...',
-//       success: 'All tasks Succesfully deleted',
-//       error: 'Failed to delete tasks',
-//     },
-//     undefined,
-//     undefined,
-//   );
-// };
+export const deleteAllTasksViaAPI = async (): Promise<void> => {
+  await RequestData<void>(API_URL, 'DELETE', {
+    loading: 'Attempting to delete tasks...',
+    success: 'All tasks Succesfully deleted',
+    error: 'Failed to delete tasks',
+  });
+};

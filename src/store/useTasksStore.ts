@@ -10,6 +10,7 @@ export type TaskState = {
   updateTaskData: (updatedTask: SavedApiTask) => void;
   deleteTask: (taskId: number) => void;
   setErrorMessage: (message: string | null) => void;
+  deleteAllTasks: () => void;
 };
 
 export const useTaskStore = create<TaskState>((set) => ({
@@ -28,5 +29,6 @@ export const useTaskStore = create<TaskState>((set) => ({
     set((state) => ({
       tasks: state.tasks.filter((t) => t.id !== taskId),
     })),
+  deleteAllTasks: () => set({ tasks: [] }),
   setErrorMessage: (message) => set({ errorMessage: message }),
 }));
