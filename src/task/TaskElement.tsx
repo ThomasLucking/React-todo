@@ -11,9 +11,7 @@ export default function TaskElement({
   due_date,
   done,
   id,
-  
 }: TaskElementProps) {
-
   const updateTaskInStore = useTaskStore((state) => state.updateTaskData);
   const deleteTaskFromStore = useTaskStore((state) => state.deleteTask);
   const setErrorMessage = useTaskStore((state) => state.setErrorMessage);

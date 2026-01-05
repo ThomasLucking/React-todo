@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import DeleteAllButton from './DeleteAllButton';
 import { saveTasksViaAPI } from '../taskAPI/taskapi';
-import { useTaskStore, useError } from '../store/useTasksStore'// Added missing imports
+import { useTaskStore, useError } from '../store/useTasksStore'; // Added missing imports
 
 export type TaskInput = {
   title: string;
@@ -10,9 +10,7 @@ export type TaskInput = {
   done: boolean;
 };
 
-
 export default function TaskCreationForm() {
-
   const addTask = useTaskStore((state) => state.addTask);
   const { setErrorMessage } = useError();
 
@@ -41,7 +39,6 @@ export default function TaskCreationForm() {
       const savedTask = await saveTasksViaAPI(taskToSend);
       addTask(savedTask);
 
-
       setTitle('');
       setContent('');
       setDueDate('');
@@ -61,7 +58,7 @@ export default function TaskCreationForm() {
         onChange={(e) => setTitle(e.target.value)}
       />
       {titleError && <p className="error-message">{titleError}</p>}
-      
+
       <input
         className="content style-button"
         type="text"
@@ -69,18 +66,18 @@ export default function TaskCreationForm() {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      
+
       <input
         className="date style-button"
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
       />
-      
+
       <button type="submit" className="Add-button style-button">
         Add
       </button>
-      
+
       {/* Ensure DeleteAllButton uses type="button" inside its own code! */}
       <DeleteAllButton />
     </form>

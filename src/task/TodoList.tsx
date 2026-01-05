@@ -6,9 +6,8 @@ import { SORT_OPTIONS, FILTER_OPTIONS } from '../constants/constants';
 import { useTaskStore } from '../store/useTasksStore';
 
 export const TodoList = () => {
-  
   const tasks = useTaskStore((state) => state.tasks);
-  
+
   const [primarySort, setPrimarySort] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('');
 
@@ -62,19 +61,15 @@ export const TodoList = () => {
 
   return (
     <div className="body-div">
-
       <TaskCreationForm />
-      
+
       <SortingMenuTodo
         onSortingChange={handleSortingChange}
         currentSort={primarySort}
         currentFilter={statusFilter}
       />
       {displayedTasks.map((task) => (
-        <TaskElement
-          key={task.id}
-          {...task}
-        />
+        <TaskElement key={task.id} {...task} />
       ))}
     </div>
   );
