@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import DeleteAllButton from './DeleteAllButton';
 import { saveTasksViaAPI } from '../taskAPI/taskapi';
-import { useTaskStore, useError } from '../store/useTasksStore'; // Added missing imports
+import { useTaskStore, useError } from '../store/useTasksStore'; 
 
 export type TaskInput = {
   title: string;
@@ -78,7 +78,7 @@ export default function TaskCreationForm() {
         Add
       </button>
 
-      {/* Ensure DeleteAllButton uses type="button" inside its own code! */}
+      
       <DeleteAllButton />
     </form>
   );

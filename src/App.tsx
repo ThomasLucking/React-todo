@@ -4,7 +4,7 @@ import { fetchTasks } from './taskAPI/taskapi.ts';
 import { TodoList } from './task/TodoList.tsx';
 import ErrorManagementComponent from './ErrorManagement/ErrorManagement.tsx';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useTaskStore } from './store/useTasksStore.ts';
+import { useTaskStore, useError } from './store/useTasksStore.ts';
 
 const getFetchPromise = cache(fetchTasks);
 const tasksPromise = getFetchPromise();
@@ -14,8 +14,7 @@ export default function App() {
 
   const tasks = useTaskStore((state) => state.tasks);
   const initializeTasks = useTaskStore((state) => state.initializeTasks);
-  const errorMessage = useTaskStore((state) => state.errorMessage);
-  const setErrorMessage = useTaskStore((state) => state.setErrorMessage);
+  const { errorMessage, setErrorMessage } = useError();
 
   useEffect(() => {
     if (tasks.length === 0 && fetchedTasks?.length > 0) {
@@ -29,7 +28,7 @@ export default function App() {
         fallback={
           <ErrorManagementComponent
             message="Critical Error Occurred."
-            onDismiss={() => {}}
+            onDismiss={() => {window.location.reload()}}
           />
         }
       >

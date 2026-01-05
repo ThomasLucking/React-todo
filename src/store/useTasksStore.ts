@@ -31,7 +31,6 @@ export const useTaskStore = create<TaskState>((set) => ({
   setErrorMessage: (message) => set({ errorMessage: message }),
 }));
 
-export const useTasks = () => useTaskStore();
 
 export const useError = () => {
   const errorMessage = useTaskStore((state) => state.errorMessage);
