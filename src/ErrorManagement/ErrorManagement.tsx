@@ -6,7 +6,6 @@ export default function ErrorManagementComponent({
   message,
   onDismiss,
 }: ErrorManagementProps) {
-  
   return (
     <div className="Error-management-div">
       <h4>Error</h4>

@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { type SavedApiTask } from '../taskAPI/taskapi';
 import { updateTask, deleteTasksViaAPI } from '../taskAPI/taskapi';
+import { useTaskStore } from '../store/useTasksStore';
 
-type TaskElementProps = SavedApiTask & {
-  onTaskUpdate: (updatedTask: SavedApiTask) => void;
-  onTaskDelete: (deletedTaskId: number) => void;
-  setErrorMessage: (message: string | null) => void;
-};
+type TaskElementProps = SavedApiTask;
 
 export default function TaskElement({
   title,
@@ -14,10 +11,11 @@ export default function TaskElement({
   due_date,
   done,
   id,
-  onTaskUpdate,
-  onTaskDelete,
-  setErrorMessage,
 }: TaskElementProps) {
+  const updateTaskInStore = useTaskStore((state) => state.updateTaskData);
+  const deleteTaskFromStore = useTaskStore((state) => state.deleteTask);
+  const setErrorMessage = useTaskStore((state) => state.setErrorMessage);
+
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedContent, setEditedContent] = useState(content);
   const [editedDueDate, setEditedDueDate] = useState(due_date);
@@ -51,7 +49,7 @@ export default function TaskElement({
           done,
         };
         const updatedTask = await updateTask(updatedTaskData);
-        onTaskUpdate(updatedTask);
+        updateTaskInStore(updatedTask);
       } catch (error) {
         setErrorMessage('Failed to update task. Please try again.');
         console.error('Error updating task:', error);
@@ -86,8 +84,7 @@ export default function TaskElement({
       };
 
       const updatedTask = await updateTask(updatedTaskData);
-
-      onTaskUpdate(updatedTask);
+      updateTaskInStore(updatedTask);
     } catch (error) {
       setErrorMessage('Failed to toggle task status. Please try again.');
       console.error('Error toggling task status:', error);
@@ -97,7 +94,7 @@ export default function TaskElement({
   const handleDelete = async () => {
     try {
       await deleteTasksViaAPI(id);
-      onTaskDelete(id);
+      deleteTaskFromStore(id);
     } catch (error) {
       setErrorMessage('Failed to delete task. Please try again.');
       console.error('Error deleting task:', error);
@@ -118,7 +115,6 @@ export default function TaskElement({
           {editedTitle}
         </legend>
       )}
-
       <div className="task-content">
         <input
           type="checkbox"
