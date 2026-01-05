@@ -96,10 +96,10 @@ export const updateTask = async (task: SavedApiTask): Promise<SavedApiTask> => {
   return data[0] as SavedApiTask;
 };
 
-export const deleteAllTasksViaAPI = async (): Promise<void> => {
-  await RequestData<void>(API_URL, 'DELETE', {
-    loading: 'Attempting to delete tasks...',
-    success: 'All tasks Succesfully deleted',
-    error: 'Failed to delete tasks',
-  });
+export const deleteAllTasksViaAPI = async (): Promise<SavedApiTask[]> => {
+  // not.is.null in SQL terms is saying delete all columns associated with an id in PostgREST
+
+  const deleteUrl = `${API_URL}?id=not.is.null`;
+
+  return await RequestData<SavedApiTask>(deleteUrl, 'DELETE', undefined);
 };

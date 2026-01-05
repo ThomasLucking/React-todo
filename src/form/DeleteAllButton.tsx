@@ -9,7 +9,7 @@ export default function DeleteAllButton() {
       await deleteAllTasksViaAPI();
       deleteAllTasks();
     } catch (error) {
-      setErrorMessage('Failed to delete task. Please try again.');
+      setErrorMessage('Failed to delete all tasks . Please try again.');
       console.error('Error deleting task:', error);
     }
   };
