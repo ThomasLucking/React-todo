@@ -30,7 +30,9 @@ export default function App() {
         fallback={
           <ErrorManagementComponent
             message="Critical Error Occurred."
-            onDismiss={() => {window.location.reload()}}
+            onDismiss={() => {
+              window.location.reload();
+            }}
           />
         }
       >

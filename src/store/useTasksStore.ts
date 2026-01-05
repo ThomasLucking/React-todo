@@ -30,6 +30,3 @@ export const useTaskStore = create<TaskState>((set) => ({
     })),
   setErrorMessage: (message) => set({ errorMessage: message }),
 }));
-
-
-

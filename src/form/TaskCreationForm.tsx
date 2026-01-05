@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import DeleteAllButton from './DeleteAllButton';
 import { saveTasksViaAPI } from '../taskAPI/taskapi';
-import { useTaskStore } from '../store/useTasksStore'; 
+import { useTaskStore } from '../store/useTasksStore';
 
 export type TaskInput = {
   title: string;
@@ -78,7 +78,6 @@ export default function TaskCreationForm() {
         Add
       </button>
 
-      
       <DeleteAllButton />
     </form>
   );
