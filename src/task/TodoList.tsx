@@ -68,7 +68,8 @@ export const TodoList = () => {
         currentSort={primarySort}
         currentFilter={statusFilter}
       />
-      {displayedTasks.map((task) => (
+      {
+      displayedTasks.map((task) => (
         <TaskElement key={task.id} {...task} />
       ))}
     </div>

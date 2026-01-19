@@ -1,4 +1,4 @@
-import { use, useEffect, cache } from 'react';
+import { use, useEffect, cache,useRef } from 'react';
 import './App.css';
 import { fetchTasks } from './taskAPI/taskapi.ts';
 import { TodoList } from './task/TodoList.tsx';
@@ -6,11 +6,13 @@ import ErrorManagementComponent from './ErrorManagement/ErrorManagement.tsx';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTaskStore } from './store/useTasksStore.ts';
 
+
 const getFetchPromise = cache(fetchTasks);
 const tasksPromise = getFetchPromise();
 
 export default function App() {
   const fetchedTasks = use(tasksPromise);
+  const initialized = useRef(false)
 
   const tasks = useTaskStore((state) => state.tasks);
   const initializeTasks = useTaskStore((state) => state.initializeTasks);
@@ -19,10 +21,11 @@ export default function App() {
   const setErrorMessage = useTaskStore((state) => state.setErrorMessage);
 
   useEffect(() => {
-    if (tasks.length === 0 && fetchedTasks?.length > 0) {
-      initializeTasks(fetchedTasks);
-    }
-  }, [fetchedTasks, initializeTasks, tasks.length]);
+  if (!initialized.current && fetchedTasks?.length > 0) {
+    initializeTasks(fetchedTasks);
+    initialized.current = true;
+  }
+}, [fetchedTasks, initializeTasks, tasks.length]);
 
   return (
     <>

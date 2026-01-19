@@ -19,12 +19,13 @@ export const useTaskStore = create<TaskState>((set) => ({
   errorMessage: null,
   setTasks: (tasks) => set({ tasks }),
   addTask: (task) => set((state) => ({ tasks: [...state.tasks, task] })),
-  updateTaskData: (updatedTask) =>
+  updateTaskData: (updatedTask) => {
     set((state) => ({
-      tasks: state.tasks.map((t) =>
-        t.id === updatedTask.id ? updatedTask : t,
-      ),
-    })),
+      tasks: state.tasks.map((t) => {
+        return Number(t.id) === Number(updatedTask.id) ? updatedTask : t;
+      }),
+    }));
+  },
   deleteTask: (taskId) =>
     set((state) => ({
       tasks: state.tasks.filter((t) => t.id !== taskId),

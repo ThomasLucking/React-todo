@@ -49,6 +49,7 @@ export default function TaskCreationForm() {
   };
 
   return (
+
     <form className="ButtonStructDiv" onSubmit={handleAddTask}>
       <input
         className="title style-button"
@@ -80,5 +81,8 @@ export default function TaskCreationForm() {
 
       <DeleteAllButton />
     </form>
+
+
+
   );
 }

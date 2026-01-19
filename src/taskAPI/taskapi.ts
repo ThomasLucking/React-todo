@@ -6,12 +6,13 @@ export interface ApiTask {
 }
 
 export type SavedApiTask = ApiTask & { id: number };
+const API_URL = 'http://localhost:3000/api/todos';
 
 async function RequestData<Data>(
   url: string,
-  method: string,
+  method: string, 
   body?: Record<string, unknown>,
-): Promise<Data[]> {
+): Promise<Data> {
   const fetchOptions: RequestInit = {
     method: method,
     headers: {
@@ -36,15 +37,15 @@ async function RequestData<Data>(
       );
     }
 
-    const data = (await response.json()) as Data[];
-    return data;
+
+    const text = await response.text();
+    return text ? JSON.parse(text) : ({} as Data);
   } catch (error) {
     console.error('API Request Failed:', error);
     throw error;
   }
 }
 
-const API_URL = 'https://api.todos.in.jt-lab.ch/todos';
 
 export const saveTasksViaAPI = async (task: ApiTask): Promise<SavedApiTask> => {
   const payload = {
@@ -56,17 +57,18 @@ export const saveTasksViaAPI = async (task: ApiTask): Promise<SavedApiTask> => {
 
   const data = await RequestData<SavedApiTask>(API_URL, 'POST', payload);
 
-  return data[0] as SavedApiTask;
+  return (Array.isArray(data) ? data[0] : data) as SavedApiTask;
 };
 
-export const fetchTasks = async () => {
-  const data = await RequestData<SavedApiTask>(API_URL, 'GET');
+
+export const fetchTasks = async (): Promise<SavedApiTask[]> => {
+  const data = await RequestData<SavedApiTask[]>(API_URL, 'GET');
   return data;
 };
 
 export const deleteTasksViaAPI = async (taskid: number): Promise<void> => {
   try {
-    const response = await fetch(`${API_URL}?id=eq.${taskid}`, {
+    const response = await fetch(`${API_URL}/${taskid}`, {
       method: 'DELETE',
     });
 
@@ -84,22 +86,22 @@ export const updateTask = async (task: SavedApiTask): Promise<SavedApiTask> => {
     title: task.title,
     content: task.content,
     due_date: task.due_date,
-    done: task.done,
+    done: Boolean(task.done),
   };
 
-  const data = await RequestData<SavedApiTask>(
-    `${API_URL}?id=eq.${task.id}`,
+  
+  
+  const response = await RequestData<{ success: boolean; data: SavedApiTask }>(
+    `${API_URL}/${task.id}`,
     'PATCH',
     updateBody,
   );
-
-  return data[0] as SavedApiTask;
+  
+  
+  return response.data;
 };
 
-export const deleteAllTasksViaAPI = async (): Promise<SavedApiTask[]> => {
-  // not.is.null in SQL terms is saying delete all columns associated with an id in PostgREST
-
-  const deleteUrl = `${API_URL}?id=not.is.null`;
-
-  return await RequestData<SavedApiTask>(deleteUrl, 'DELETE', undefined);
+export const deleteAllTasksViaAPI = async (): Promise<void> => {
+  const deleteUrl = `${API_URL}`;
+  await RequestData<unknown>(deleteUrl, 'DELETE');
 };
