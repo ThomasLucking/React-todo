@@ -6,7 +6,7 @@ export interface ApiTask {
 }
 
 export type SavedApiTask = ApiTask & { id: number };
-const API_URL = 'http://localhost:3000/api/todos';
+const API_URL = 'http://localhost:8080/api/todos';
 
 async function RequestData<Data>(
   url: string,
